@@ -112,13 +112,13 @@
             qrForm.addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                let defaultURL = 'https://github.com/Blimboy/Dog-Gone/blob/main/Index2.html';
+                let defaultURL = 'https://blimboy.github.io/Dog-Gone/index2.html';
                 const phone = phoneInput.value.trim().slice(-10); // Get the last 10 digits
                 const phone1 = phone1Input.value.trim().slice(-10); // Get the last 10 digits if provided
                 const dogname = encodeURIComponent(dognameInput.value.trim());
 
                 if (!phone1) {
-                    defaultURL = 'https://github.com/Blimboy/Dog-Gone/blob/main/Index1.html';
+                    defaultURL = 'https://blimboy.github.io/Dog-Gone/index1.html';
                 }
 
                 let qrContent = `${defaultURL}?phone=%2B44${phone}`;
