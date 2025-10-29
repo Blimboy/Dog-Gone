@@ -6,12 +6,12 @@ The recipient can then either call the phonenumber(s) or click the button to sen
 <br/><br/><br/>
 Contents:
 <br/><br/>
-index = main web page (landing Page).
+* index = main web page (landing Page).
 <br/><br/>
-QR = QR code generator
+* QR = QR code generator
 <br/><br/>
-index1 = web link including 1 phonenumber and dog name
+* index1 = web link including 1 phonenumber and dog name
 <br/><br/>
-index2 = web link including 2 phonenumbers and dog name
+* index2 = web link including 2 phonenumbers and dog name
 <br/><br/>
-* index1 / index2 html will only display on a mobile phone/tablet.
+Please note, index1.html & index2.html will only display on a mobile phone/tablet.
