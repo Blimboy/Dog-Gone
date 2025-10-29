@@ -14,4 +14,3 @@ Contents:
 * index1 = web link including 1 phonenumber and dog name
 * index2 = web link including 2 phonenumbers and dog name
 <br/><br/>
-Please note, index1.html & index2.html will only display on a mobile phone/tablet.
