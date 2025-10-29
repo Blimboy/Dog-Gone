@@ -1,10 +1,17 @@
-This page is designed to provide a free QR code to be used on Dog Tags, when scanned it will provide the Dog's name and the contact phonenumber(s) for the owner(s).
-<br/>
-The recipient can then either call the number or click the button to send a text message to the dog owner(s) with their current location information.
-
-index = main web page html
+Dog-Gone was designed to provide a free QR code to be used on Metal Dog Tags.
+<br/><br/>
+When the QR Code is scanned on a mobile phone, it will the provide the recipient with the Dog's name and contact phonenumber(s) for the owner(s).
+<br/><br/>
+The recipient can then either call the phonenumber(s) or click the button to send a text message to the dog owner(s) with their current GPS location information.
+<br/><br/><br/><br/>
+Contents:
+<br/><br/>
+index = main web page (landing Page).
+<br/><br/>
 QR = QR code generator
+<br/><br/>
 index1 = web link including 1 phonenumber and dog name
+<br/><br/>
 index2 = web link including 2 phonenumbers and dog name
-
-* index1 / index2 html will only display on a mobile phone/tablet
+<br/><br/>
+* index1 / index2 html will only display on a mobile phone/tablet.
