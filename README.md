@@ -10,11 +10,8 @@ The recipient can then either call the phonenumber(s) or click the button to sen
 Contents:
 <br/>
 * index = main web page (landing Page).
-<br/>
 * QR = QR code generator
-<br/>
 * index1 = web link including 1 phonenumber and dog name
-<br/>
 * index2 = web link including 2 phonenumbers and dog name
 <br/><br/>
 Please note, index1.html & index2.html will only display on a mobile phone/tablet.
