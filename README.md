@@ -1,4 +1,4 @@
-Dog-Gone was designed to provide a free QR code to be used on Metal Dog Tags.
+Dog-Gone is a free QR code generator for Metal Dog Tags.
 <br/><br/>
 When the QR Code is scanned on a mobile phone, it will the provide the recipient with the Dog's name and contact phonenumber(s) for the owner(s).
 <br/><br/>
