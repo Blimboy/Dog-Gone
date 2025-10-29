@@ -1,4 +1,6 @@
-Dog-Gone is a free QR code generator for Metal Dog Tags.                                https://blimboy.github.io/Gog-Gone/index
+Dog-Gone is a free QR code generator for Metal Dog Tags.    
+<br/><br/>
+https://blimboy.github.io/Gog-Gone/index
 <br/><br/>
 When the QR Code is scanned on a mobile phone, it will the provide the recipient with the Dog's name and contact phonenumber(s) for the owner(s).
 <br/><br/>
