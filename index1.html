@@ -29,23 +29,25 @@
     </div>
 
     <script>
+        // Function to extract query parameters
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        function sendLocation(phoneNumber, phoneNumber1, name) {
+        // Simplified function: only one phone number
+        function sendLocation(phoneNumber, name) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
                     const googleMapsUrl = `https://www.google.com/maps/@${latitude},${longitude},14z?entry=ttu`;
-                    const smsBody = `Hi, I've found you dog ${name}, Here's my current location:\n${googleMapsUrl}`;
+                    const smsBody = `Hi, I've found your dog ${name}. Here's my current location:\n${googleMapsUrl}`;
                     const encodedSmsBody = encodeURIComponent(smsBody);
 
                     // Open the SMS app with the pre-filled message
                     if (/android/i.test(navigator.userAgent)) {
-                        window.location.href = `sms:${phoneNumber};${phoneNumber1}?body=${encodedSmsBody}`;
+                        window.location.href = `sms:${phoneNumber}?body=${encodedSmsBody}`;
                     } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                         window.location.href = `sms:${phoneNumber}&body=${encodedSmsBody}`;
                     } else {
@@ -59,6 +61,7 @@
             }
         }
 
+        // Main logic
         document.addEventListener("DOMContentLoaded", function() {
             const phoneNumber = getQueryParam('phone');
             const name = getQueryParam('dogname');
@@ -71,7 +74,7 @@
                     <p>My name is ${name}.</p>
                     <p>Please could you call my owners on:</p>
                     <p><a href="tel:${phoneNumber}">${phoneNumber}</a></p>
-                 `;
+                `;
                 
                 sendSmsButton.style.display = 'block';
 
@@ -84,5 +87,4 @@
         });
     </script>
 </body>
-
 </html>
