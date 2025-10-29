@@ -3,7 +3,7 @@ Dog-Gone was designed to provide a free QR code to be used on Metal Dog Tags.
 When the QR Code is scanned on a mobile phone, it will the provide the recipient with the Dog's name and contact phonenumber(s) for the owner(s).
 <br/><br/>
 The recipient can then either call the phonenumber(s) or click the button to send a text message to the dog owner(s) with their current GPS location information.
-<br/><br/><br/><br/>
+<br/><br/><br/>
 Contents:
 <br/><br/>
 index = main web page (landing Page).
