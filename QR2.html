@@ -145,7 +145,7 @@
                 }
                 qrContent += `&dogname=${dogname}`;
 
-                const qrSize = 1000;
+                const qrSize = 200;
                 let qrURL = '';
 
                 // Generate QR based on selected source
@@ -153,6 +153,7 @@
                     const qr = new QRious({
                         value: qrContent,
                         size: qrSize,
+                        level = 'H',
                         padding: 0,
                         foreground: 'black',
                         background: 'white'
