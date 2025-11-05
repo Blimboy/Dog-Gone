@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28Z9QX8QEG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-28Z9QX8QEG');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Generator</title>
-    <!-- Include QRious directly from GitHub -->
-    <script src="https://cdn.jsdelivr.net/gh/neocotic/qrious/dist/qrious.min.js"></script>
+
+    <!-- Include QRCodeStyling -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,14 +28,14 @@
             text-align: center;
             margin: 10px 0;
         }
-        button, input, select {
+        button, input {
             padding: 8px;
             margin: 5px 0;
             font-size: 16px;
             display: block;
             margin: 8px auto;
         }
-        #qr-image {
+        #qr-canvas {
             display: block;
             margin: 15px auto;
         }
@@ -61,46 +73,30 @@
     <form id="qr-form">
         <label for="phone">Phone Number:</label>
         <input type="text" id="phone" required>
-
         <label for="phone1">2nd Phone Number (Optional):</label>
         <input type="text" id="phone1">
-
         <label for="dogname">Dog Name:</label>
         <input type="text" id="dogname" required>
-
-        <!-- NEW: QR source selector -->
-        <label for="qr-source">QR Style:</label>
-        <select id="qr-source">
-            <option value="qrious">Default (QRious)</option>
-            <option value="google">Google Charts API</option>
-            <option value="goqr">GoQR API</option>
-        </select>
-
         <br><br>
         <button type="submit">Generate QR Code</button>
     </form>
-
     <br>
     <div class="centered-content">
-        <img id="qr-image" style="display: none;" alt="QR Code">
+        <div id="qr-canvas" style="display: none;"></div>
         <button id="download-button" style="display: none;">Download QR Code</button>
     </div>
-
     <div class="qr-content" id="qr-content" style="display: none;">
         <p>If you would like to order a QR Tag from our Etsy store, please click the 'Copy QR Text' button then click the 'Order a Dog-Gone Tag' button, you can then paste it directly into the personalisation space on the order page:</p>
         <p id="qr-text" class="invisible"></p>
         <button id="copy-button">Copy QR Text</button>
     </div>
-
     <br>
     <div class="centered-content">
         <a href="https://amzn.to/4bOsYuz" target="_blank">
             <img id="dog-gone-image" src="https://sheffieldengraving.com/cdn/shop/products/A8_5dc76f22-8820-43e1-911a-d26a59817d99.jpg?v=1667143730&width=360" alt="Dog-Gone Tag">
         </a>
     </div>
-
     <button id="order-button" class="hidden">Order your Dog-Gone Tag</button>
-
     <br><br>
     <div class="container hidden" id="donation-container">
         <div class="text">
@@ -117,14 +113,15 @@
             const phoneInput = document.getElementById('phone');
             const phone1Input = document.getElementById('phone1');
             const dognameInput = document.getElementById('dogname');
-            const qrImage = document.getElementById('qr-image');
+            const qrCanvas = document.getElementById('qr-canvas');
             const downloadButton = document.getElementById('download-button');
             const orderButton = document.getElementById('order-button');
             const donationContainer = document.getElementById('donation-container');
             const qrContentDiv = document.getElementById('qr-content');
             const qrText = document.getElementById('qr-text');
             const copyButton = document.getElementById('copy-button');
-            const qrSourceSelect = document.getElementById('qr-source');
+
+            let qrCode; // will hold our QRCodeStyling instance
 
             qrForm.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -133,7 +130,6 @@
                 const phone = phoneInput.value.trim().slice(-10);
                 const phone1 = phone1Input.value.trim().slice(-10);
                 const dogname = encodeURIComponent(dognameInput.value.trim());
-                const qrSource = qrSourceSelect.value;
 
                 if (!phone1) {
                     defaultURL = 'https://blimboy.github.io/Dog-Gone/index1.html';
@@ -145,45 +141,45 @@
                 }
                 qrContent += `&dogname=${dogname}`;
 
-                const qrSize = 200;
-                let qrURL = '';
+                // Show QR canvas
+                qrCanvas.style.display = 'block';
 
-                // Generate QR based on selected source
-                if (qrSource === 'qrious') {
-                    const qr = new QRious({
-                        value: qrContent,
-                        size: qrSize,
-                        level: 'H',
-                        padding: 0,
-                        foreground: 'black',
-                        background: 'white'
-                    });
-                    qrImage.src = qr.toDataURL();
+                // Destroy previous QR code if exists
+                if (qrCode) qrCanvas.innerHTML = '';
 
-                } else if (qrSource === 'google') {
-                    qrURL = `https://chart.googleapis.com/chart?cht=qr&chs=${qrSize}x${qrSize}&chl=${encodeURIComponent(qrContent)}`;
-                    qrImage.src = qrURL;
-                    
-                } else if (qrSource === 'goqr') {
-                    qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(qrContent)}`;
-                    qrImage.src = qrURL;
-                }
+                // Create new QRCodeStyling instance
+                qrCode = new QRCodeStyling({
+                    width: 200,
+                    height: 200,
+                    data: qrContent,
+                    dotsOptions: {
+                        color: "#000000",
+                        type: "rounded"
+                    },
+                    backgroundOptions: {
+                        color: "#ffffff"
+                    },
+                    cornersSquareOptions: {
+                        type: "extra-rounded"
+                    },
+                    imageOptions: {
+                        crossOrigin: "anonymous",
+                        margin: 5
+                    }
+                });
 
-                qrImage.style.display = 'block';
+                qrCode.append(qrCanvas);
+
+                // Show the download button and content
                 downloadButton.style.display = 'inline';
-
                 qrText.textContent = qrContent;
                 qrContentDiv.style.display = 'block';
-
                 orderButton.classList.remove('hidden');
                 donationContainer.classList.remove('hidden');
             });
 
             downloadButton.addEventListener('click', function() {
-                const link = document.createElement('a');
-                link.href = qrImage.src;
-                link.download = 'qr-code.png';
-                link.click();
+                if (qrCode) qrCode.download({ name: "qr-code", extension: "png" });
             });
 
             copyButton.addEventListener('click', function() {
